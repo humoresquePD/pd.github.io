@@ -1,14 +1,21 @@
 let speedrunTableBody = document.getElementById("speedrunTable").children[0]
 
-console.log(fetchJSONData())
+try {
+    let speedrunData = JSON.parse(fetchJSONData("./data/speedruns.json"))
+    console.log(speedrunData.length)
+}
+catch {
+    console.error("Failed to extract JSON")
+}
+
 
 for (let i = 1; i < speedrunTableBody.children.length; i++) {
     let timeVar = speedrunTableBody.children[i].children[1]
     timeVar.textContent = "test"
 }
 
-function fetchJSONData() {
-    fetch("./data/speedruns.json")
+function fetchJSONData(path) {
+    fetch(path)
         .then((res) => {
             if (!res.ok) {
                 throw new Error

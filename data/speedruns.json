@@ -1,8 +1,14 @@
 {
   "speedruns" : [
     {
-      "time" : 90,
-      "users" :  "Lilith, Sh4rkyV4"
+      "time": 90,
+      "users": "Lilith, Sh4rkyV4",
+      "link": ""
+    },
+    {
+      "time": 100,
+      "users": "Hanu",
+      "link": ""
     }
   ]
 }
