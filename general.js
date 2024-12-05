@@ -2,7 +2,7 @@ let speedrunTableBody = document.getElementById("speedrunTable").children[0]
 
 try {
     let speedrunData = JSON.parse(fetchJSONData("./data/speedruns.json"))
-    console.log(speedrunData.length)
+    console.log(speedrunData["speedruns"].length)
 }
 catch {
     console.error("Failed to extract JSON")
