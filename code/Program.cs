@@ -1,4 +1,4 @@
-﻿namespace pd
+﻿namespace pd.code
 {
     internal class Program
     {
