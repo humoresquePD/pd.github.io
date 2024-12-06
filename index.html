@@ -4,14 +4,34 @@
     <link rel="stylesheet" href="general.css">
 </head>
 <body>
-    <script src="general.js" defer></script>
+    <script type="text/javascript" src="general.js" defer></script>
 
     <h1>Deeeeep.io PD Info</h1>
 
     <div class="bounding-div">
         <div class="content-div">
             <h2>Monthly Ratio</h2>
-            <p>Speedruns are a speedrun to a win of any PD game, from when the first animal is picked. Links are provided to footage, if applicable.</p>
+            <p>
+                This is a sorted list of the "best" ratios and scores of people who play pd. Users allready there are simply there because I know them/they are on the leaderboard.
+                You can add any additional users using the input below
+            </p>
+
+            <form id="ratio_adder" action="" method="post" onsubmit="AddPersonToRatioRankings(event)">
+                <label for="user">Enter New Username:</label>
+                <input type="text" id="ratio_adder_content" name="user"><br><br>
+            </form>
+            <br />
+            <table id="ratioTable">
+                <tr>
+                    <th>Place</th>
+                    <th>User</th>
+                    <th>Ratio</th>
+                    <th>Plays</th>
+                    <th>Wins</th>
+                </tr>
+            </table>
+
+
         </div>
         <div class="content-div">
             <h2>Speedruns</h2>
