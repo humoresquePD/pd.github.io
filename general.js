@@ -1,6 +1,16 @@
+﻿var usersDisplayed = []
+var statsDisplayed = []
+var defaultPeopleList = ["Dinoo", "Humoresque811", "卄anu卄al", "Lilith", "NoxiRad"]
 
 var speedrunTableBody = document.getElementById("speedrunTable").children[0]
 var ratioTable = document.getElementById("ratioTable")
+
+var form = document.getElementById("ratio_adder")
+
+
+for (let i = 0; i < defaultPeopleList.length; i++) {
+    AddPersonToRatioRankingsDirect(defaultPeopleList[i])
+}
 
 try {
     fetchJSONData("./data/speedruns.json")
@@ -37,12 +47,13 @@ function UpdateSpeedrunText(json) {
 
 function AddPersonToRatioRankings(user) {
 
-    var form = document.getElementById("ratio_adder")
-
     user.preventDefault();
     console.log("hello from the new func" + form.user.value)
 
-    fetch("https://apibeta.deeeep.io/users/u/" + form.user.value).then(function (response) {
+    AddPersonToRatioRankingsDirect(form.user.value)
+}
+function AddPersonToRatioRankingsDirect(username) {
+    fetch("https://apibeta.deeeep.io/users/u/" + username).then(function (response) {
         return response.json()
     }).then(function (data) {
         GetFurtherDataOnUser(data)
@@ -64,19 +75,52 @@ function GetFurtherDataOnUser(data1) {
     }).then(function (data) {
         AddNewUserRow(data1, data)
     }).catch(function (error) {
+        console.error(error)
         alert("Invalid Username 2")
     })
 }
 
 function AddNewUserRow(data1, data2) {
 
-    var row = ratioTable.insertRow(1)
+    if (usersDisplayed.includes(data1.username)) {
+        alert("User already in list")
+        return;
+    }
+
+    form.user.value = ""
+
+    let scoreNumber = CalculateCustomNumber(data2)
+    let saveRow = 0
+
+    for (let i = 0; i < usersDisplayed.length + 1; i++) {
+        if (statsDisplayed[i] == null) {
+            usersDisplayed.splice(i, 0, data1.username)
+            statsDisplayed.splice(i, 0, CalculateCustomNumber(data2))
+            saveRow = i
+            break;
+        }
+        if (scoreNumber >= statsDisplayed[i]) {
+            usersDisplayed.splice(i, 0, data1.username)
+            statsDisplayed.splice(i, 0, CalculateCustomNumber(data2))
+            saveRow = i
+            break;
+        }
+    }
+
+    var row = ratioTable.insertRow(1 + saveRow)
     row.insertCell(0).textContent = "N/A"
     row.insertCell(1).textContent = data1.username
-    row.insertCell(2).textContent = data2.pd.ratio + "%"
-    row.insertCell(3).textContent = data2.pd.played
-    row.insertCell(4).textContent = data2.pd.won
+    row.insertCell(2).textContent = scoreNumber
+    row.insertCell(3).textContent = data2.pd.ratio + "%"
+    row.insertCell(4).textContent = data2.pd.played
+    row.insertCell(5).textContent = data2.pd.won
 
-    console.log(data1)
+    for (let i = 1; i < ratioTable.rows.length; i++) {
+        ratioTable.rows[i].cells[0].textContent = i
+    }
+}
 
+function CalculateCustomNumber(data2) {
+    let modifier = Math.min((data2.pd.played / 140) + .3, 1) // Scales from 1 game .2 to 48 games 1
+    return Math.ceil(data2.pd.ratio * modifier)
 }
