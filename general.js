@@ -121,6 +121,6 @@ function AddNewUserRow(data1, data2) {
 }
 
 function CalculateCustomNumber(data2) {
-    let modifier = Math.min((data2.pd.played / 140) + .3, 1) // Scales from 1 game .2 to 48 games 1
+    let modifier = Math.min((data2.pd.played / 60) + .2, 1) // Scales from 1 game .2 to 48 games 1
     return Math.ceil(data2.pd.ratio * modifier)
 }
