@@ -1,6 +1,6 @@
 ﻿var usersDisplayed = []
 var statsDisplayed = []
-var defaultPeopleList = ["Dinoo", "Humoresque811", "卄anu卄al", "Lilith", "NoxiRad"]
+var defaultPeopleList = ["Dinoo", "Humoresque811", "卄anu卄al", "Lilith"]
 
 var ratioTable = document.getElementById("ratioTable")
 
