@@ -34,6 +34,10 @@ p {
     font-size: 20px;
 }
 
+a {
+    color: lightgray;
+}
+
 table, tr, td, th {
     border: white solid 1px;
     border-collapse: collapse;
